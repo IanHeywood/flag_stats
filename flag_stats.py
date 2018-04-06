@@ -98,14 +98,14 @@ print >>f,'#generated='+now
 print >>f,'#msname='+msname
 print >>f,'#uv_bins='+str(uv_bins)
 print >>f,'#freq_bins='+str(freq_bins)
-print >>f,'#time_bins='
+print >>f,'#time_bins='+str(time_bins)
 print >>f,'#delta_time='+str(delta_time)
-print >>f,'#uv0,uv1,ch0,ch1,f0,f1,flag_frac,n_meas,t_mean,t_iso'
+print >>f,'#uv0,uv1,ch0,ch1,f0,f1,t0,t1,flag_frac,n_meas,t_mean,t_iso'
 for t in range(0,time_bins):
 	t0 = t*delta_time
 	t1 = (t+1)*delta_time
 	for i in range(0,uv_bins):
-		print 'Processing chunk ............. '+str(i)+' of '+str(uv_bins)
+		print 'Processing chunk ............. '+str(i+1)+','+str(t+1)+' of '+str(uv_bins)+','+str(time_bins)
 		uv0 = i*delta_uv
 		uv1 = (i+1)*delta_uv
 		t0 = times[0]
@@ -125,12 +125,14 @@ for t in range(0,time_bins):
 				if len(vals) == 1 and vals == True:
 					flag_frac = 1.0
 				elif len(vals) == 1 and vals == False:
-					flag_Frac = 0.0
+					flag_frac = 0.0
 				else:
 					flag_frac = round(float(counts[1])/float(numpy.sum(counts)),3)
 			else:
 				flag_frac = 0.0
 			print >>f,uv0,uv1,ch0,ch1,f0,f1,t0,t1,flag_frac,n_meas,t_mean,t_iso
+
+f.close()
 
 print 'Wrote log file ............... '+opfile
 elapsed = time.time() - clock0
