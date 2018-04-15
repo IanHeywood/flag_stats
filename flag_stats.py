@@ -46,8 +46,8 @@ parser.add_option('-o','--out',dest='opfile',help='Output file for flagging stat
 (options,args)  = parser.parse_args()
 
 delta_uv = options.delta_uv
-delta_freq = options.delta_freq
-delta_time = options.delta_time
+delta_freq = int(options.delta_freq)
+delta_time = float(options.delta_time)
 
 if len(args) != 1:
 	print 'Please specify a Measurement Set'
