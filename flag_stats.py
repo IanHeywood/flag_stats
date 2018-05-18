@@ -120,7 +120,10 @@ for t in range(0,time_bins):
 			f0 = freqs[ch0]
 			f1 = freqs[ch1]
 			if flags is not None:
-				vals,counts = numpy.unique(flags[:,ch0:ch1,:],return_counts=True)
+				if ch0 == ch1:
+					vals,counts = numpy.unique(flags[:,ch0,:],return_counts=True)
+				else:
+					vals,counts = numpy.unique(flags[:,ch0:ch1,:],return_counts=True)
 				n_meas = numpy.sum(counts)
 				if len(vals) == 1 and vals == True:
 					flag_frac = 1.0
